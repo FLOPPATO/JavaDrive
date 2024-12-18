@@ -194,14 +194,26 @@ public class Client {
         	
         	*/
 	        
-	        boolean upload =! true;
 	        
 	        if(answer == LOG_IN || answer == NEW_USER) {
-	        	if(upload) {
-	        		Upload_With_gui(saved);
-	        	}
-	        	else {
-	        		Dowload_With_gui(saved);
+	        	while(true) {
+			        boolean Download;
+			        
+					{
+						CountDownLatch latch = new CountDownLatch(1);
+						GuiChoice t = new GuiChoice(latch);
+						try {
+							latch.await();
+						}catch (Exception e) {}
+						Download = t.is_Download();
+					}
+					
+		        	if(Download) {
+		        		Dowload_With_gui(saved);
+		        	}
+		        	else {
+		        		Upload_With_gui(saved);
+		        	}
 	        	}
 	        }
 	        

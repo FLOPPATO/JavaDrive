@@ -67,8 +67,9 @@ public class GuiLogin {
 	        buttonPanel.add(registerButton);
 	        
 	        frame.add(loginPanel);
-	        frame.add(buttonPanel,BorderLayout.SOUTH);
 	        frame.add(messageLabel,BorderLayout.NORTH);
+	        frame.add(buttonPanel,BorderLayout.SOUTH);
+	        
 
 	        
 	        loginButton.addActionListener(new ActionListener() {

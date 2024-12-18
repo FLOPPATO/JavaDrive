@@ -133,39 +133,40 @@ public class handler implements Runnable {
         	 */
 //--------------------------------------SELECT OPTION---------------------
             
-
-            int ans = message_in.read();
-            Packet user = (Packet) obj_in.readObject();
-        	if(ans == WAIT_FILE) {
-            	download_multiple(user); 
-            	/*sequence:
-            	 * receive buffer size(kB)
-            	 * for each file:
-            	 * 		receive size
-            	 * 		receive file data
-            	 * 		send confirm receive(99)
-            	 * 		next file
-            	 * 
-            	 */
-        	}else if(ans == SEE_FILE) {
-        		send_fileNames(user);
-            	/*sequence:
-            	 * send the user's file count
-            	 * for each file:
-            	 * 		send file name
-            	 */
-        		
-        		upload_multiple(user);
-            	/*sequence:
-            	 * wait for buffer size(kB)
-            	 * wait for file count
-            	 * for each file:
-            	 * 		wait for file name
-            	 * 		write file length
-            	 * 		send raw file data
-            	 * 		read FILE_RECIVED for confirmation (99)
-            	 */
-        	}
+            while(true) {
+	            int ans = message_in.read();
+	            Packet user = (Packet) obj_in.readObject();
+	        	if(ans == WAIT_FILE) {
+	            	download_multiple(user); 
+	            	/*sequence:
+	            	 * receive buffer size(kB)
+	            	 * for each file:
+	            	 * 		receive size
+	            	 * 		receive file data
+	            	 * 		send confirm receive(99)
+	            	 * 		next file
+	            	 * 
+	            	 */
+	        	}else if(ans == SEE_FILE) {
+	        		send_fileNames(user);
+	            	/*sequence:
+	            	 * send the user's file count
+	            	 * for each file:
+	            	 * 		send file name
+	            	 */
+	        		
+	        		upload_multiple(user);
+	            	/*sequence:
+	            	 * wait for buffer size(kB)
+	            	 * wait for file count
+	            	 * for each file:
+	            	 * 		wait for file name
+	            	 * 		write file length
+	            	 * 		send raw file data
+	            	 * 		read FILE_RECIVED for confirmation (99)
+	            	 */
+	        	}
+            }
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
